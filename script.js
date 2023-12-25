@@ -20,7 +20,19 @@ btnChangeDim.setAttribute('style', 'width: 90px;');
 drawGrid();
 
 btnChangeDim.addEventListener('click', () => {
-    let dim = prompt("Enter the size of your grid.");
+    
+    let dim = 0;
+
+    while (true) {
+
+        dim = prompt("Enter the size of your grid.");
+
+        if (dim > 0 && dim <= 100) {
+            break;
+        }   
+
+    }
+    
     removeGrid();
     drawGrid(dim);
 })
@@ -44,12 +56,12 @@ function drawGrid(dim = 32) {
 
         for (let j = 0; j < dim; ++j) {
             let field = document.createElement('div');
-            field.setAttribute('style', `height: ${fieldSize}px; width: ${fieldSize}px; background-color: grey;`);
+            field.setAttribute('style', `height: ${fieldSize}px; width: ${fieldSize}px; background-color: white;`);
             field.setAttribute('id', j);
             row.appendChild(field);
 
             field.addEventListener('mouseover', () => {
-                field.style.backgroundColor = "yellow";
+                field.style.backgroundColor = getRandomColor();
             })
         }
     }
@@ -59,3 +71,12 @@ function removeGrid() {
     const grid = document.querySelector('.grid');
     grid.remove();
 }
+
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
